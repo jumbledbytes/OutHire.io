@@ -7,14 +7,16 @@ import { Database, aql } from 'arangojs';
 @Injectable()
 export class DatabaseService implements ApplicationDatabase {
 
-  static DEFAULT_DATABASE_NAME : string = "OutHire.io";
+  static DEFAULT_DATABASE_NAME : string = "OutHire";
   static DEFAULT_DATABASE_PORT : number = 8529;
 
   private _db : Database = null;
 
+  private collectionList;
+
   constructor() { }
 
-  public connect(connectionInfo: Object) : boolean {
+  public async connect(connectionInfo: Object) : Promise<boolean> {
     if(! connectionInfo || ! connectionInfo["host"] || ! connectionInfo["username"] || ! connectionInfo["password"]) {
       return false;
     }
@@ -33,7 +35,9 @@ export class DatabaseService implements ApplicationDatabase {
       url: `http://${username}:${password}@${host}:${port}`,
       databaseName: database
     });
-    return this._db.isConnected();
+
+    this.collectionList = await this._db.listCollections(); 
+    return this.collectionList !== undefined && this.collectionList != null;
   }
 
   public isConnected() : boolean {

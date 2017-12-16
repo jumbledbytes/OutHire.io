@@ -16,11 +16,11 @@ export class JobApplicationService {
     return jobApplications;
   }
 
-  public connect(hostName : string, userName : string, password : string) : boolean {
+  public async connect(hostName : string, userName : string, password : string) : Promise<boolean> {
     if(! this.database) {
       return false;
     }
-    let connectObject = {host: hostName, user: userName, password: password};
-    return this.database.connect(connectObject);
+    let connectObject = {host: hostName, username: userName, password: password};
+    return await this.database.connect(connectObject);
   }
 }

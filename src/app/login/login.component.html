@@ -24,10 +24,10 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field class="login-full-width">
-        <input matInput placeholder="Password" [formControl]="loginFormControl" [(ngModel)]="password">
+        <input matInput type="password" placeholder="Password" [formControl]="loginFormControl" [(ngModel)]="password">
         <mat-hint>OutHire.io Password</mat-hint>
         <mat-error *ngIf="loginFormControl.hasError('password') && !loginFormControl.hasError('required')">
-          Please enter a valid username
+          Please enter a valid passwrod
         </mat-error>
       </mat-form-field>
       <div id="login-button">
