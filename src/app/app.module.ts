@@ -7,8 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-
-
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon'
 
 import { AppComponent } from './app.component';
 import { DatabaseService } from './services/database.service';
@@ -18,6 +18,7 @@ import { ApplicationListComponent } from './jobapplications/applicationlist/appl
 import { JobApplicationComponent } from './jobapplications/jobapplication/jobapplication.component';
 import { ApplicationPageComponent } from './jobapplications/applicationpage/applicationpage.component';
 import { ApplicationPageGuard } from './jobapplications/applicationpage.guard';
+import { NavBarComponent } from './jobapplications/nav-bar/nav-bar.component';
 
 const OutHireRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -31,7 +32,8 @@ const OutHireRoutes: Routes = [
     LoginComponent,
     ApplicationListComponent,
     JobApplicationComponent,
-    ApplicationPageComponent
+    ApplicationPageComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,9 @@ const OutHireRoutes: Routes = [
     ReactiveFormsModule,
 
     MatButtonModule,
+    MatIconModule,
     MatInputModule,
+    MatToolbarModule,
 
     RouterModule.forRoot(OutHireRoutes)
   ],
