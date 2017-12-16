@@ -12,12 +12,64 @@
     flex-wrap: wrap;
 }
 
+main {
+    background: rgba(27, 1, 255, 0.185);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height:100%;
+}
+
+h2 {
+    font-weight: 400;
+    color: #211738;
+    font-family: 'Quicksand', 'Roboto', sans-serif;
+}
+
+header h2 { 
+    line-height:2.5rem; 
+    color: rgba(33,23,56,0.7);
+    margin: 0;
+}
+
+header {
+    font-weight: 400;
+    color: #211738;
+    font-family: 'Quicksand', 'Roboto', sans-serif;
+}
+
+#title { font-size:3.8rem; }
+
+@media screen and (max-width: 1060px) {
+    header { max-width: initial; }
+
+    #title { font-size: 2.6rem; }
+
+    h2 { 
+        font-size: 1.5rem; 
+        line-height: initial;
+    }
+}
+
+
 .login-form {
     min-width: 150px;
     max-width: 500px;
     width: 100%;
-  }
-  
+
+    border: 1px solid rgb(6, 0, 97);
+    background: #FFF;
+    padding: 15px 30px 20px 30px;
+}
+
+.login-form mat-input-container { width: 100%; }
+
 .login-full-width {
     width: 100%;
+}
+
+#login-button {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
