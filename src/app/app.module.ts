@@ -14,15 +14,24 @@ import { AppComponent } from './app.component';
 import { DatabaseService } from './services/database.service';
 import { JobApplicationService } from './services/jobapplication.service';
 import { LoginComponent } from './login/login.component';
+import { ApplicationListComponent } from './jobapplications/applicationlist/applicationlist.component';
+import { JobApplicationComponent } from './jobapplications/jobapplication/jobapplication.component';
+import { ApplicationPageComponent } from './jobapplications/applicationpage/applicationpage.component';
+import { ApplicationPageGuard } from './jobapplications/applicationpage.guard';
 
 const OutHireRoutes: Routes = [
-  { path: '', component: LoginComponent }
+  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'applications', component: ApplicationPageComponent, canActivate: [ApplicationPageGuard]}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ApplicationListComponent,
+    JobApplicationComponent,
+    ApplicationPageComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +46,8 @@ const OutHireRoutes: Routes = [
   ],
   providers: [
     DatabaseService,
-    JobApplicationService
+    JobApplicationService,
+    ApplicationPageGuard
   ],
   bootstrap: [AppComponent]
 })

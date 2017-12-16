@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher} from '@angular/material/core';
@@ -55,7 +56,7 @@ export class LoginComponent implements OnInit {
    *                                                      to manage job applications
    * @memberof LoginComponent
    */
-  constructor(private jobApplicationService : JobApplicationService) { 
+  constructor(private jobApplicationService : JobApplicationService, private router : Router) { 
 
   }
 
@@ -69,6 +70,7 @@ export class LoginComponent implements OnInit {
     let connected = await this.jobApplicationService.connect(this.serverName, this.username, this.password);
     if(connected) {
       // route to job application page
+      this.router.navigate(["applications"]);
     } else {
       // show login failure
       this.loginAttemptFailed = true;
