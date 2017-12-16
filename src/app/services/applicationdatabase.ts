@@ -26,8 +26,9 @@ export interface ApplicationDatabase {
      * Get all data from the database
      * 
      * @template DataType  The type of data returned from the database
+     * @param collectionName The name of the collection/table to get data from
      * @returns {Array<DataType>} The data returned from the database
      * @memberof ApplicationDatabase
      */
-    findAll<DataType extends BaseModel>() : Array<DataType>;
+    findAll<DataType extends BaseModel>(collectionName : string) : Array<DataType>;
 }

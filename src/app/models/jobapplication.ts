@@ -1,10 +1,10 @@
-import { BaseModel } from './basemodel';
+import { DatabaseModel } from './databasemodel';
 import { ApplicationEvent } from './applicationevent';
 
 /**
  * This class encapsulates all of the data about a specific job application
  */
-export class JobApplication extends BaseModel {
+export class JobApplication extends DatabaseModel {
 
     /** This is the title of the job applied to */
     private jobTitle : string = "";

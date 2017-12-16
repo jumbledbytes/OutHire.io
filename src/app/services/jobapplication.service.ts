@@ -13,10 +13,19 @@ export class JobApplicationService {
   /** Flag indicating whether the service is connected and usable or not */
   private _isConnected : boolean = false;
 
+  /**
+   * Creates an instance of JobApplicationService.
+   * 
+   * @param {DatabaseService} database The database to use for job application data
+   * @memberof JobApplicationService
+   */
   constructor(private database : DatabaseService) {
 
   }
 
+  /**
+   * Check if the service is successfully connected to the backend database
+   */
   get isConnected() : boolean {
     return this._isConnected;
   }
