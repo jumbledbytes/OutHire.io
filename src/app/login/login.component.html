@@ -1,0 +1,38 @@
+<main>
+  <header style="max-width:480px; padding:10px 30px;">
+    <div id="title">Where do I want to work</div>
+    <h2>Keep track of where you are applying and what you need to do next to land that dream job!
+    </h2>
+  </header>
+
+  <section>
+    <form class="login-form">
+      <h2>Log In</h2>
+      <mat-form-field class="login-full-width">
+        <input matInput placeholder="OutHire.io Server" [formControl]="loginFormControl"
+               [errorStateMatcher]="matcher" [(ngModel)]="serverName">
+        <mat-hint>OutHire.io Server</mat-hint>
+        <mat-error *ngIf="loginFormControl.hasError('email') && !loginFormControl.hasError('required')">
+          Please enter a valid server address
+        </mat-error>
+        <mat-error *ngIf="loginFormControl.hasError('required')">
+          OutHire.io Server is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="login-full-width">
+        <input matInput placeholder="Username" [formControl]="loginFormControl" [(ngModel)]="username">
+        <mat-hint>OutHire.io Account</mat-hint>
+      </mat-form-field>
+      <mat-form-field class="login-full-width">
+        <input matInput placeholder="Password" [formControl]="loginFormControl" [(ngModel)]="password">
+        <mat-hint>OutHire.io Password</mat-hint>
+      </mat-form-field>
+      <div>
+        <button mat-raised-button color="primary" (click)="login()">Track Applications</button>
+      </div>
+      <div *ngIf="loginAttemptFailed">
+        <mat-error>Unable to connect to {{serverName}}</mat-error>
+      </div>
+    </form>
+  </section>
+</main>>
