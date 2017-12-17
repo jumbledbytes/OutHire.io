@@ -99,6 +99,14 @@ export class JobApplicationComponent implements OnInit {
    */
   public save() {
     if(this.jobApplication) {
+      let currentEvent = this.jobApplication.currentEvent
+      let historicalEvent =  this.jobApplication.applicationHistory.find((event) => {
+        return event.eventDate == currentEvent.eventDate && event.eventStatus == currentEvent.eventStatus &&
+               event.eventNote == currentEvent.eventNote});
+      // if the current state isn't in the history add it to the history
+      if(!historicalEvent) {
+        this.jobApplication.applicationHistory.push(this.jobApplication.currentEvent);
+      }
       this.jobApplicationService.database.save(this.jobApplication);
       this.onSave.emit(this.jobApplication);
     }

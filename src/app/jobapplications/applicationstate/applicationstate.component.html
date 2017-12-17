@@ -1,0 +1,13 @@
+<div *ngIf="!editable" class="app-attribute">
+    <span class="app-attribute-title">Current State:</span>
+    <span class="app-attribute-value">{{currentState}}</span>
+    <span class="app-attribute-date">{{currentDate}}</span>
+</div>
+
+<div *ngIf="editable" class="app-attribute">
+    <span class="app-attribute-title">State:</span>
+    <button mat-button [matMenuTriggerFor]="menu">{{currentState}}</button>
+    <mat-menu #menu="matMenu">
+      <button *ngFor="let state of availableStates" (click)="setCurrentState(state)">{{state}}</button>
+    </mat-menu>
+</div>

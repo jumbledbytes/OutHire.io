@@ -25,11 +25,18 @@
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
+      <app-application-state [currentEvent]="jobApplication.currentEvent" [editable]="editable"></app-application-state>
+      
       <app-application-attribute [attributeTitle]="'Company URL'" [attributeName]="'companyUrl'" [jobApplication]="jobApplication" [editable]="editable"></app-application-attribute>
       <app-application-attribute [attributeTitle]="'Posting URL'" [attributeName]="'applicationUrl'" [jobApplication]="jobApplication" [editable]="editable"></app-application-attribute>
       <app-application-attribute [attributeTitle]="'Recruiter Name'" [attributeName]="'recruiterName'" [jobApplication]="jobApplication" [editable]="editable"></app-application-attribute>
       <app-application-attribute [attributeTitle]="'Recruiter Email'" [attributeName]="'recruiterEmail'" [jobApplication]="jobApplication" [editable]="editable"></app-application-attribute>
       <app-application-attribute [attributeTitle]="'Recruiter Phone'" [attributeName]="'recruiterPhone'" [jobApplication]="jobApplication" [editable]="editable"></app-application-attribute>
+    
+      <div *ngIf="!editable && jobApplication.applicationHistory && jobApplication.applicationHistory.length>0">
+        <h2>Application History</h2>
+        <app-application-state *ngFor="let currentEvent of jobApplication.applicationHistory" [currentEvent]="currentEvent"></app-application-state>
+      </div>
     </mat-card-content>
     <mat-card-actions>
         <div *ngIf="!editable">

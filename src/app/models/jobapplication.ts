@@ -10,31 +10,31 @@ export class JobApplication extends DatabaseModel {
     static COLLECTION_NAME = "jobApplications";
 
     /** This is the title of the job applied to */
-    private jobTitle : string = "Title";
+    public jobTitle : string = "Title";
 
     /** This is the name of the company */
-    private company : string = "Company";
+    public company : string = "Company";
 
     /** This is the URL to the company's website */
-    private companyUrl : string = "";
+    public companyUrl : string = "";
 
     /** This is the URL to the job posting */
-    private applicationUrl : string = "";
+    public applicationUrl : string = "";
 
     /** This is the name of the recruiter */
-    private recruiterName : string = "";
+    public recruiterName : string = "";
 
     /** This is the email of the recruiter */
-    private recruiterEmail : string = "";
+    public recruiterEmail : string = "";
 
     /** This is the email of the recruiter */
-    private recruiterPhone : string = "";
+    public recruiterPhone : string = "";
 
     /** This is the history of this application, recording each event that has occurred during the application process */
-    private applicationHistory : Array<ApplicationEvent> = new Array<ApplicationEvent>();
+    public applicationHistory : Array<ApplicationEvent> = new Array<ApplicationEvent>();
 
     /** This is the current or next event associated with the job application */
-    private currentEvent : ApplicationEvent = new ApplicationEvent();
+    public currentEvent : ApplicationEvent = new ApplicationEvent();
 
     /**
      * Creates an instance of JobApplication. This instance is tailored to retrieve data

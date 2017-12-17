@@ -8,18 +8,18 @@ import { BaseModel } from "./basemodel";
 export class ApplicationEvent extends BaseModel {
 
     /** This is the date the event occurred, or if in the future is scheduled to occur */
-    public eventDate : Date;
+    public eventDate : Date = new Date();
 
     /** This is the status of the application at the time of the event */
-    public eventStatus : ApplicationState;
+    public eventStatus : string = "";
 
     /** This describes the event or provides extra information about the event */
-    public eventNote : string;
+    public eventNote : string = "";
 
     constructor(jsonData? : ApplicationEvent) {
         super(jsonData);
         if(! this.eventStatus) {
-            this.eventStatus = ApplicationState.NOT_DEFINED;
+            this.eventStatus = ApplicationState.NOT_DEFINED.toString();
         }
     }
 
