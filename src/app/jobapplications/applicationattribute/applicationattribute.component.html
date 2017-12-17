@@ -3,7 +3,7 @@
       <b>{{attributeTitle}}:</b> {{value}}
   </div>
   <div *ngIf="editable">
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="attribute-full-width">
           <input matInput [(ngModel)]="value" placeholder="{{attributeTitle}}" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
   </div>

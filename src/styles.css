@@ -1,6 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-.mat-input-container.app-input-no-underline .mat-input-underline {
-    display: none;
-  }
+
+h2 {
+    font-weight: 400;
+    color: #211738;
+    font-family: 'Quicksand', 'Roboto', sans-serif;
+}
+
+header h2 { 
+    line-height:2.5rem; 
+    color: rgba(33,23,56,0.7);
+    margin: 0;
+}
+
+header {
+    font-weight: 400;
+    color: #211738;
+    font-family: 'Quicksand', 'Roboto', sans-serif;
+}
+
+#title { font-size:3.8rem; }

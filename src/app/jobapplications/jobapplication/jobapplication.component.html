@@ -1,7 +1,7 @@
 <mat-card class="application-card" *ngIf="!_isHidden">
   <form name="job-application-form">
-    <mat-card-header>
-      <mat-card-title>
+    <mat-card-header class="full-width">
+      <mat-card-title >
         <div *ngIf="!editable">
             <h2>{{jobApplication.company}}</h2>
         </div>
@@ -11,7 +11,7 @@
             </mat-form-field>
         </div>
       </mat-card-title>
-      <mat-card-subtitle>
+      <mat-card-subtitle class="full-width">
           <div *ngIf="!editable">
               {{jobApplication.jobTitle}}
           </div>

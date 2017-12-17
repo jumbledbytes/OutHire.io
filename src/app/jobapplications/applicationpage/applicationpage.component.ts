@@ -10,6 +10,11 @@ export class ApplicationPageComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
+  }
+
+  public newApplication() {
+    
   }
 
 }

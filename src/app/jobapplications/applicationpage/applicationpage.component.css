@@ -1,0 +1,25 @@
+.flex-center {
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	-webkit-box-align: center;
+    align-items: center;
+
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#application-page {
+    background-color: rgb(185, 209, 233);
+}
+
+#current-applications {
+    font-weight: 400;
+    font-size: 32px;
+    color: #211738;
+    font-family: 'Quicksand', 'Roboto', sans-serif;
+    background-color: rgb(185, 209, 233);
+}

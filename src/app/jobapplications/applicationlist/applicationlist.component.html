@@ -1,3 +1,14 @@
+<div *ngIf="!showNew">
+    <button mat-button (click)="showNewApplication()">ADD NEW</button>
+</div>
+
+<div *ngIf="showNew">
+    <app-job-application class="list-item" [jobApplication]="newApplication" 
+        (onSave)="saveNewApplication($event)"
+        (onCancel)="canceNewApplication()" [editable]="true"></app-job-application>
+        <br>
+</div>
+
 <div *ngFor="let application of applicationList">
     <app-job-application class="list-item" [jobApplication]="application"></app-job-application><br>
 </div>

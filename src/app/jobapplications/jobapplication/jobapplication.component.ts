@@ -20,9 +20,16 @@ export class JobApplicationComponent implements OnInit {
    * of the deleted application object  */
   @Output() onDelete: EventEmitter<string> = new EventEmitter<string>();
 
+  /** This event is emitted when the job application is saved, the event will include the id
+   * of the deleted application object  */
+  @Output() onSave: EventEmitter<JobApplication> = new EventEmitter<JobApplication>();
+
+  /** This event is emitted when changes to the job application are cancelled */
+  @Output() onCancel: EventEmitter<JobApplication> = new EventEmitter<JobApplication>();
+
 
   /** Flag whether the job application data is editable or not */
-  private _inEditMode : boolean = false;
+  @Input("editable") _inEditMode : boolean = false;
 
   /** Flag indicating whether to show or hide this job */
   private _isHidden : boolean = false;
@@ -49,6 +56,15 @@ export class JobApplicationComponent implements OnInit {
   }
 
   /**
+   * Set the component into editable (this only works if jobApplication is set)
+   * 
+   * @memberof JobApplicationComponent
+   */
+  set editable(editable : boolean) {
+    this._inEditMode = editable;
+  }
+
+  /**
    * Set the component into editable mode, which makes all of the data fields editable by the user
    * 
    * @memberof JobApplicationComponent
@@ -67,6 +83,15 @@ export class JobApplicationComponent implements OnInit {
   }
 
   /**
+   * Show this application
+   * 
+   * @memberof JobApplicationComponent
+   */
+  public show() {
+    this._isHidden = false;
+  }
+
+  /**
    * This will save any changes to the job application to the backend database. If the
    * job application is new then it will be a new record in the database
    * 
@@ -75,6 +100,7 @@ export class JobApplicationComponent implements OnInit {
   public save() {
     if(this.jobApplication) {
       this.jobApplicationService.database.save(this.jobApplication);
+      this.onSave.emit(this.jobApplication);
     }
     this._inEditMode = false;
   }
@@ -89,7 +115,13 @@ export class JobApplicationComponent implements OnInit {
     if(this.jobApplication) {
       this.jobApplicationService.database.revert(this.jobApplication);
     }
+    // If this application doesn't have an id then it doesn't exist in the database
+    // and shouldn't be shown anymore
+    if(! this.jobApplication._id) {
+      this._isHidden = true;
+    }
     this._inEditMode = false;
+    this.onCancel.emit(this.jobApplication);
   }
 
   /**

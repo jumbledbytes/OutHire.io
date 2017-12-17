@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, DoCheck, Input, OnInit } from '@angular/core';
 import { JobApplicationService } from '../../services/jobapplication.service';
 import { JobApplication } from '../../models/jobapplication';
 
@@ -17,6 +17,12 @@ export class ApplicationListComponent implements OnInit {
 
   /** Flag to indicate that the application list changed and Angular should re-render */
   private listUpdated : boolean = false;
+
+  /** Flag whether to show new job application form */
+  private showNew : boolean = false;
+
+  /** New job application object that can be used to add new applications to the list */
+  private newApplication : JobApplication;
 
   constructor(private jobApplicationService : JobApplicationService) { }
 
@@ -53,4 +59,42 @@ export class ApplicationListComponent implements OnInit {
     this.listUpdated = true;
   }
 
+  /**
+   * Show a new application component that can be used to add a new entry
+   * 
+   * @private
+   * @memberof ApplicationListComponent
+   */
+  private showNewApplication() {
+    this.newApplication = new JobApplication();
+    this.showNew = true;
+  }
+
+  /**
+   * Save the new application to the database and hide the new application form
+   * 
+   * @private
+   * @memberof ApplicationListComponent
+   */
+  private saveNewApplication(newApplication : JobApplication) {
+    if(! newApplication) {
+      return;
+    }
+    this.jobApplicationService.database.save(newApplication);
+    this.applicationList.push(newApplication);
+    this.newApplication = new JobApplication();
+    this.listUpdated = true;
+    this.showNew = false;
+  }
+
+  /**
+   * Creation of a new application was cancelled. Stop showing new application form
+   * and don't do anything
+   * 
+   * @private
+   * @memberof ApplicationListComponent
+   */
+  private canceNewApplication() {
+    this.showNew = false;
+  }
 }

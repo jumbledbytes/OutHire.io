@@ -13,7 +13,7 @@
 }
 
 main {
-    background: rgba(27, 1, 255, 0.185);
+    background: rgb(185, 209, 233);
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -21,27 +21,11 @@ main {
     min-height:100%;
 }
 
-h2 {
-    font-weight: 400;
-    color: #211738;
-    font-family: 'Quicksand', 'Roboto', sans-serif;
-}
 
-header h2 { 
-    line-height:2.5rem; 
-    color: rgba(33,23,56,0.7);
-    margin: 0;
-}
-
-header {
-    font-weight: 400;
-    color: #211738;
-    font-family: 'Quicksand', 'Roboto', sans-serif;
-}
 
 #title { font-size:3.8rem; }
 
-@media screen and (max-width: 1060px) {
+@media screen and (max-width: 800px) {
     header { max-width: initial; }
 
     #title { font-size: 2.6rem; }
