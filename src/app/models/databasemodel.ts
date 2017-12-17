@@ -1,4 +1,6 @@
+import { ApplicationDatabase } from '../services/applicationdatabase';
 import { BaseModel } from "./basemodel";
+import { DatabaseService } from "../services/database.service";
 
 /**
  * This is a base model class for all model data that comes
@@ -6,26 +8,21 @@ import { BaseModel } from "./basemodel";
  */
 export class DatabaseModel extends BaseModel {
 
+    /** This is the backend database collection/table this data is persisted it  */
+    public databaseCollection: string;
+
+    /** This is the unique key for the document in the database */
+    public _id: string;
+
+    /** This is the raw data object retrieved from the database, used as a buffer to revert changes */
+    public databaseObject: any
+
     /**
      * Creates an instance of DatabaseModel.
      * 
-     * @param {*} databaseObject The backend object that came from the database
      * @memberof DatabaseModel
      */
-    constructor(protected databaseObject : any) {
+    constructor() {
         super();
-        this.load(databaseObject);
-    }
-
-    /**
-     * Persist the data back to the database it came from. The database object must have a
-     * "save" function on it.
-     */
-    public save() {
-        if(! this.databaseObject || typeof this.databaseObject["save"] !== "function") {
-            return;
-        }
-        this.copyTo(this.databaseObject);
-        this.databaseObject.save();
     }
 }

@@ -3,6 +3,7 @@ import { ApplicationDatabase } from './applicationdatabase';
 import { JobApplication } from '../models/jobapplication';
 
 import { Database, aql } from 'arangojs';
+import { DatabaseModel } from '../models/databasemodel';
 
 /**
  * This class is a service to the raw data coming from a backend database. In this
@@ -80,8 +81,60 @@ export class DatabaseService implements ApplicationDatabase {
    * @returns {Array<DataType>} All of the data in the requested collection/table
    * @memberof DatabaseService
    */
-  public findAll<DataType>(collectionName : string): Array<DataType> {
+  public findAll<DataType extends DatabaseModel>(collectionName: string): Array<DataType> {
     return new Array<DataType>();
   }
 
+  /**
+   * Get a specific document from the database
+   * 
+   * @template DataType 
+   * @param {string} collectionName The name of the collection/table to get the document from
+   * @param {string} documentId The unique id (primary key) of the document to fetch
+   * @returns {DataType} 
+   * @memberof ApplicationDatabase
+   */
+  public find<DataType extends DatabaseModel>(collectionName: string, documentId: string): DataType {
+    let DataTypeConstructor: new () => DataType;
+    let result = new DataTypeConstructor();
+    if (collectionName in this.collectionList) {
+      let document = this._db.collection(collectionName).document(documentId);
+      result.databaseCollection = collectionName;
+      result.load(document);
+      result._id = documentId;
+    }
+    return result;
+  }
+
+  /**
+   * Persist data from an object in the database
+   * 
+   * @param {DatabaseService} dataObject The data object to persist
+   * @returns {*} This is the object (or null) returned by the actual database implementation
+   * @memberof ApplicationDatabase
+   */
+  public save(dataObject: DatabaseModel): any {
+    if (!this.isConnected() || !dataObject) {
+      return null;
+    }
+
+    let documentCollection = dataObject.databaseCollection;
+    let documentInfo = this._db.collection(documentCollection).save(dataObject);
+    dataObject._id = documentInfo._id;
+  }
+
+  /**
+   * Revert the model back to the data that is in the database
+   * 
+   * @returns 
+   * @memberof DatabaseModel
+   */
+  public revert(dataObject: DatabaseModel) {
+    if (!this.isConnected() || !dataObject || !dataObject._id) {
+      return;
+    }
+    let documentCollection = dataObject.databaseCollection;
+    let oldDocument = this._db.collection(documentCollection).document(dataObject._id)
+    dataObject.load(oldDocument);
+  }
 }

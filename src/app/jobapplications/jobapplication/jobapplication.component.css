@@ -1,0 +1,18 @@
+.application-card {
+    width: 800px;
+}
+
+@media screen and (max-width: 1060px) {
+    header { max-width: initial; }
+
+    #title { font-size: 2.6rem; }
+
+    h2 { 
+        font-size: 1.5rem; 
+        line-height: initial;
+    }
+
+    .application-card {
+        width: 100%;
+    }
+}

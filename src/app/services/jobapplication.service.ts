@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { DatabaseService } from './database.service';
 import { JobApplication } from '../models/jobapplication';
+import { ApplicationDatabase } from './applicationdatabase';
 
 /**
  * This service provides the app with all of the job application data from the
@@ -10,16 +11,18 @@ import { JobApplication } from '../models/jobapplication';
 @Injectable()
 export class JobApplicationService {
 
+  static JOB_APPLICATION_COLLECTION = "jobApplications";
+
   /** Flag indicating whether the service is connected and usable or not */
   private _isConnected : boolean = false;
 
   /**
    * Creates an instance of JobApplicationService.
    * 
-   * @param {DatabaseService} database The database to use for job application data
+   * @param {DatabaseService} _database The database to use for job application data
    * @memberof JobApplicationService
    */
-  constructor(private database : DatabaseService) {
+  constructor(private _database : DatabaseService) {
 
   }
 
@@ -31,13 +34,20 @@ export class JobApplicationService {
   }
 
   /**
+   * Get the application database this service is using
+   */
+  get database() : ApplicationDatabase {
+    return this._database;
+  }
+
+  /**
    * Get the list of all of the applications in the database
    * 
    * @returns {Array<JobApplication>} 
    * @memberof JobApplicationService
    */
   public getApplications() : Array<JobApplication> {
-    let jobApplications = this.database.findAll<JobApplication>();
+    let jobApplications = this._database.findAll<JobApplication>(JobApplicationService.JOB_APPLICATION_COLLECTION);
 
     return jobApplications;
   }
@@ -52,11 +62,11 @@ export class JobApplicationService {
    * @memberof JobApplicationService
    */
   public async connect(hostName : string, userName : string, password : string) : Promise<boolean> {
-    if(! this.database) {
+    if(! this._database) {
       return false;
     }
     let connectObject = {host: hostName, username: userName, password: password};
-    this._isConnected = await this.database.connect(connectObject);
+    this._isConnected = await this._database.connect(connectObject);
     return this._isConnected;
   }
 }

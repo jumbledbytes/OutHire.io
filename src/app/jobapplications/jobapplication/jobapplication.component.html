@@ -1,3 +1,38 @@
-<p>
-  jobapplication works!
-</p>
+<mat-card>
+  <form name="job-application-form">
+    <mat-card-header>
+      <mat-card-title>
+        <div *ngIf="!editable">
+            {{jobApplication.company}}
+        </div>
+        <div *ngIf="editable">
+            <mat-form-field class="example-full-width">
+                <input matInput [(ngModel)]="jobApplication.company" [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+        </div>
+      </mat-card-title>
+      <mat-card-subtitle>
+          <div *ngIf="!editable">
+              {{jobApplication.jobTitle}}
+          </div>
+          <div *ngIf="editable">
+              <mat-form-field class="example-full-width">
+                  <input matInput [(ngModel)]="jobApplication.jobTitle" [ngModelOptions]="{standalone: true}">
+              </mat-form-field>
+          </div>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+
+    </mat-card-content>
+    <mat-card-actions>
+        <div *ngIf="!editable">
+          <button mat-button (click)="setEditable()">UPDATE</button>
+        </div>
+        <div *ngIf="editable">
+            <button mat-button (click)="save()">SAVE</button>
+            <button mat-button (click)="revert()">CANCEL</button>
+        </div>
+    </mat-card-actions>
+  </form>
+</mat-card>
