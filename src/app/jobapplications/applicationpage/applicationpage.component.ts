@@ -13,8 +13,6 @@ export class ApplicationPageComponent implements OnInit {
 
   }
 
-  public newApplication() {
-    
-  }
+
 
 }

@@ -1,15 +1,17 @@
 <mat-card class="application-card" *ngIf="!_isHidden">
   <form name="job-application-form">
     <mat-card-header class="full-width">
+
+
       <mat-card-title >
-        <div *ngIf="!editable">
+        <span *ngIf="!editable">
             <h2>{{jobApplication.company}}</h2>
-        </div>
-        <div *ngIf="editable">
-            <mat-form-field class="full-width">
-                <input matInput [(ngModel)]="jobApplication.company" [ngModelOptions]="{standalone: true}">
-            </mat-form-field>
-        </div>
+        </span>
+        <span *ngIf="editable">
+          <mat-form-field class="full-width">
+              <input matInput [(ngModel)]="jobApplication.company" [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </span>
       </mat-card-title>
       <mat-card-subtitle class="full-width">
           <div *ngIf="!editable">

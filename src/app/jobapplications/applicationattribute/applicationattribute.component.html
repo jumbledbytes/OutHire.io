@@ -1,6 +1,6 @@
 <div *ngIf="editable || value">
-  <div *ngIf="!editable">
-      <b>{{attributeTitle}}:</b> {{value}}
+  <div *ngIf="!editable" class="app-attribute">
+      <span class="app-attribute-title">{{attributeTitle}}:</span><span class="app-attribute-value"> {{value}}</span>
   </div>
   <div *ngIf="editable">
       <mat-form-field class="attribute-full-width">

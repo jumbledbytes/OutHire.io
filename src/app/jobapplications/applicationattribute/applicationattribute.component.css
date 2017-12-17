@@ -1,3 +1,20 @@
 .attribute-full-width {
     width: 95%;
 }
+
+.app-attribute {
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+    font-size: 16px;
+    color: #211738;
+    font-family: 'Roboto', sans-serif;
+}
+
+.app-attribute-value {
+    font-weight: normal;
+}
+
+.app-attribute-title {
+    font-weight: bold;
+}
