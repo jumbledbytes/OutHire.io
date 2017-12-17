@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { JobApplicationService } from '../../services/jobapplication.service';
 import { JobApplication } from '../../models/jobapplication';
 
@@ -14,7 +14,7 @@ import { JobApplication } from '../../models/jobapplication';
 export class JobApplicationComponent implements OnInit {
 
   /** This is the job application data we want to display */
-  private jobApplication : JobApplication;
+  @Input() private jobApplication : JobApplication;
 
   /** Flag whether the job application data is editable or not */
   private _inEditMode : boolean = false;
@@ -26,9 +26,7 @@ export class JobApplicationComponent implements OnInit {
    * @memberof JobApplicationComponent
    */
   constructor(private jobApplicationService : JobApplicationService) { 
-    this.jobApplication = new JobApplication();
-    this.jobApplication.databaseCollection
-    this._inEditMode = true; // If we have an empty job application start with it being editable
+
   }
 
   /**
@@ -77,7 +75,17 @@ export class JobApplicationComponent implements OnInit {
     this._inEditMode = false;
   }
 
+  /**
+   * This is called by Angular when the component is fully initialized
+   * 
+   * @memberof JobApplicationComponent
+   */
   ngOnInit() {
-
+    // Ensure we always have a job application, if one wasn't provided then make
+    // one and set the component to editable so a new job application can be added
+    if(! this.jobApplication) {
+      this.jobApplication = new JobApplication();
+      this._inEditMode = true; // If we have an empty job application start with it being editable
+    }
   }
 }

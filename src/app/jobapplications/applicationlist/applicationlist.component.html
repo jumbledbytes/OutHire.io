@@ -1,3 +1,4 @@
-<p>
-  applicationlist works!
-</p>
+<div *ngFor="let application of applicationList">
+    <app-job-application [jobApplication]="application"></app-job-application>
+</div>
+

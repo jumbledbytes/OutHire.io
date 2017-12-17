@@ -31,7 +31,7 @@ export interface ApplicationDatabase {
      * @returns {Array<DataType>} The data returned from the database
      * @memberof ApplicationDatabase
      */
-    findAll<DataType extends DatabaseModel>(collectionName: string): Array<DataType>;
+    findAll<DataType extends DatabaseModel>(dataTypeClass: { new (...args: any[]): DataType}, collectionName: string): Promise<Array<DataType>>;
 
     /**
      * Get a specific document from the database
@@ -42,7 +42,7 @@ export interface ApplicationDatabase {
      * @returns {DataType} 
      * @memberof ApplicationDatabase
      */
-    find<DataType extends DatabaseModel>(collectionName: string, documentId: string): DataType
+    find<DataType extends DatabaseModel>(dataTypeClass: { new (...args: any[]): DataType}, collectionName: string, documentId: string): Promise<DataType>
 
     /**
      * Persist data from an object in the database
@@ -51,7 +51,7 @@ export interface ApplicationDatabase {
      * @returns {*} This is the object (or null) returned by the actual database implementation
      * @memberof ApplicationDatabase
      */
-    save(dataObject: DatabaseModel): any;
+    save(dataObject: DatabaseModel): Promise<any>;
 
     /**
      * Revert the model back to the data that is in the database
@@ -59,5 +59,5 @@ export interface ApplicationDatabase {
      * @returns 
      * @memberof DatabaseModel
      */
-    revert(dataObject: DatabaseModel)
+    revert(dataObject: DatabaseModel);
 }

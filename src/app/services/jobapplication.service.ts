@@ -46,8 +46,8 @@ export class JobApplicationService {
    * @returns {Array<JobApplication>} 
    * @memberof JobApplicationService
    */
-  public getApplications() : Array<JobApplication> {
-    let jobApplications = this._database.findAll<JobApplication>(JobApplicationService.JOB_APPLICATION_COLLECTION);
+  public async getApplications() : Promise<Array<JobApplication>> {
+    let jobApplications = await this._database.findAll<JobApplication>(JobApplication, JobApplicationService.JOB_APPLICATION_COLLECTION);
 
     return jobApplications;
   }

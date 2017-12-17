@@ -81,8 +81,21 @@ export class DatabaseService implements ApplicationDatabase {
    * @returns {Array<DataType>} All of the data in the requested collection/table
    * @memberof DatabaseService
    */
-  public findAll<DataType extends DatabaseModel>(collectionName: string): Array<DataType> {
-    return new Array<DataType>();
+  public async findAll<DataType extends DatabaseModel>(dataTypeClass: { new (...args: any[]): DataType}, collectionName: string): Promise<Array<DataType>> {
+    let collectionContents  = new Array<DataType>();
+
+    // Get all of the raw results from the database
+    let cursor = await this._db.collection(collectionName).all();
+
+    // Convert the raw results into model objects and save them in the list that is returned
+    await cursor.each((dbResult) => {
+      let result = new dataTypeClass();
+      result.databaseCollection = collectionName;
+      result.load(dbResult);
+      collectionContents.push(result);
+    });
+
+    return collectionContents;
   }
 
   /**
@@ -94,15 +107,14 @@ export class DatabaseService implements ApplicationDatabase {
    * @returns {DataType} 
    * @memberof ApplicationDatabase
    */
-  public find<DataType extends DatabaseModel>(collectionName: string, documentId: string): DataType {
-    let DataTypeConstructor: new () => DataType;
-    let result = new DataTypeConstructor();
-    if (collectionName in this.collectionList) {
-      let document = this._db.collection(collectionName).document(documentId);
-      result.databaseCollection = collectionName;
-      result.load(document);
-      result._id = documentId;
-    }
+  public async find<DataType extends DatabaseModel>(dataTypeClass: { new (...args: any[]): DataType}, collectionName: string, documentId: string): Promise<DataType> {
+    let result = new dataTypeClass();
+
+    let document = this._db.collection(collectionName).document(documentId);
+    result.databaseCollection = collectionName;
+    result.load(document);
+    result._id = documentId;
+    
     return result;
   }
 
@@ -113,14 +125,15 @@ export class DatabaseService implements ApplicationDatabase {
    * @returns {*} This is the object (or null) returned by the actual database implementation
    * @memberof ApplicationDatabase
    */
-  public save(dataObject: DatabaseModel): any {
+  public async save(dataObject: DatabaseModel): Promise<any> {
     if (!this.isConnected() || !dataObject) {
       return null;
     }
 
     let documentCollection = dataObject.databaseCollection;
-    let documentInfo = this._db.collection(documentCollection).save(dataObject);
+    let documentInfo = await this._db.collection(documentCollection).save(dataObject);
     dataObject._id = documentInfo._id;
+    return documentInfo;
   }
 
   /**
