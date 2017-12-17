@@ -5,6 +5,10 @@ import { ApplicationEvent } from '../../models/applicationevent';
 import { JobApplicationService } from '../../services/jobapplication.service';
 import { ApplicationDatabase } from '../../services/applicationdatabase';
 
+/**
+ * THis component displays the state of a job application. It can also display
+ * historical state of the application
+ */
 @Component({
   selector: 'app-application-state',
   templateUrl: './applicationstate.component.html',
@@ -18,14 +22,27 @@ export class ApplicationStateComponent implements OnInit {
   /** Flag whether the job attribute data is editable or not */
   @Input() editable : boolean = false;
 
+  /** List of available application states the user can choose from */
   private availableStates : Array<string> = new Array<string>();
 
+  /** The current selected application state */
   private currentState : string = "";
 
+  /** The data the application state was changed to its current state */
   private currentDate : string;
 
-  constructor(private jobApplicationService : JobApplicationService) { }
+  /**
+   * Creates an instance of ApplicationStateComponent.
+   * 
+   * @memberof ApplicationStateComponent
+   */
+  constructor() { }
 
+  /**
+   * Called by Angular when it is done initializing the component
+   * 
+   * @memberof ApplicationStateComponent
+   */
   ngOnInit() {
     if(this.currentEvent) {
       this.currentState = this.currentEvent.eventStatus;

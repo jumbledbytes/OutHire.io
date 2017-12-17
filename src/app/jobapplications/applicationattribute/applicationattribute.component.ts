@@ -20,10 +20,21 @@ export class ApplicationAttributeComponent implements OnInit {
   /** Flag whether the job attribute data is editable or not */
   @Input() editable : boolean = false;
 
+  /**
+   * Creates an instance of ApplicationAttributeComponent.
+   * 
+   * @memberof ApplicationAttributeComponent
+   */
   constructor() { 
 
   }
 
+  /**
+   * Get the value of the attribute
+   * 
+   * @type {string} 
+   * @memberof ApplicationAttributeComponent
+   */
   get value() : string {
     if(this.jobApplication.hasOwnProperty(this.attributeName)) {
       return this.jobApplication[this.attributeName];
@@ -31,12 +42,22 @@ export class ApplicationAttributeComponent implements OnInit {
     return "";
   }
 
+  /**
+   * Set the value of the attribute
+   * 
+   * @memberof ApplicationAttributeComponent
+   */
   set value(newValue : string) {
     if(this.jobApplication.hasOwnProperty(this.attributeName)) {
       this.jobApplication[this.attributeName] = newValue;
     }
   }
 
+  /**
+   * This is called by Angular when it is done constructing the component
+   * 
+   * @memberof ApplicationAttributeComponent
+   */
   ngOnInit() {
 
   }
