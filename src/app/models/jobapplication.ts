@@ -18,6 +18,18 @@ export class JobApplication extends DatabaseModel {
     /** This is the URL to the company's website */
     private companyUrl : string = "";
 
+    /** This is the URL to the job posting */
+    private applicationUrl : string = "";
+
+    /** This is the name of the recruiter */
+    private recruiterName : string = "";
+
+    /** This is the email of the recruiter */
+    private recruiterEmail : string = "";
+
+    /** This is the email of the recruiter */
+    private recruiterPhone : string = "";
+
     /** This is the history of this application, recording each event that has occurred during the application process */
     private applicationHistory : Array<ApplicationEvent> = new Array<ApplicationEvent>();
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { JobApplicationService } from '../../services/jobapplication.service';
 import { JobApplication } from '../../models/jobapplication';
 
@@ -16,8 +16,16 @@ export class JobApplicationComponent implements OnInit {
   /** This is the job application data we want to display */
   @Input() private jobApplication : JobApplication;
 
+  /** This event is emitted when the job application is deleted, the event will include the id
+   * of the deleted application object  */
+  @Output() onDelete: EventEmitter<string> = new EventEmitter<string>();
+
+
   /** Flag whether the job application data is editable or not */
   private _inEditMode : boolean = false;
+
+  /** Flag indicating whether to show or hide this job */
+  private _isHidden : boolean = false;
 
   /**
    * Creates an instance of JobApplicationComponent.
@@ -50,6 +58,15 @@ export class JobApplicationComponent implements OnInit {
   }
 
   /**
+   * Hide this application
+   * 
+   * @memberof JobApplicationComponent
+   */
+  public hide() {
+    this._isHidden = true;
+  }
+
+  /**
    * This will save any changes to the job application to the backend database. If the
    * job application is new then it will be a new record in the database
    * 
@@ -73,6 +90,19 @@ export class JobApplicationComponent implements OnInit {
       this.jobApplicationService.database.revert(this.jobApplication);
     }
     this._inEditMode = false;
+  }
+
+  /**
+   * Delete the job application from the list
+   * 
+   * @memberof JobApplicationComponent
+   */
+  public delete() {
+    if(this.jobApplication) {
+      this.jobApplicationService.database.delete(this.jobApplication);
+      this.onDelete.emit(this.jobApplication._id);
+      this._isHidden = true;
+    }
   }
 
   /**

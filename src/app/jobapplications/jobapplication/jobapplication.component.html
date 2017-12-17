@@ -1,12 +1,12 @@
-<mat-card>
+<mat-card class="application-card" *ngIf="!_isHidden">
   <form name="job-application-form">
     <mat-card-header>
       <mat-card-title>
         <div *ngIf="!editable">
-            {{jobApplication.company}}
+            <h2>{{jobApplication.company}}</h2>
         </div>
         <div *ngIf="editable">
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="full-width">
                 <input matInput [(ngModel)]="jobApplication.company" [ngModelOptions]="{standalone: true}">
             </mat-form-field>
         </div>
@@ -16,18 +16,23 @@
               {{jobApplication.jobTitle}}
           </div>
           <div *ngIf="editable">
-              <mat-form-field class="example-full-width">
+              <mat-form-field class="full-width">
                   <input matInput [(ngModel)]="jobApplication.jobTitle" [ngModelOptions]="{standalone: true}">
               </mat-form-field>
           </div>
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-
+      <app-application-attribute [attributeTitle]="'Company URL'" [attributeName]="'companyUrl'" [jobApplication]="jobApplication" [editable]="editable"></app-application-attribute>
+      <app-application-attribute [attributeTitle]="'Posting URL'" [attributeName]="'applicationUrl'" [jobApplication]="jobApplication" [editable]="editable"></app-application-attribute>
+      <app-application-attribute [attributeTitle]="'Recruiter Name'" [attributeName]="'recruiterName'" [jobApplication]="jobApplication" [editable]="editable"></app-application-attribute>
+      <app-application-attribute [attributeTitle]="'Recruiter Email'" [attributeName]="'recruiterEmail'" [jobApplication]="jobApplication" [editable]="editable"></app-application-attribute>
+      <app-application-attribute [attributeTitle]="'Recruiter Phone'" [attributeName]="'recruiterPhone'" [jobApplication]="jobApplication" [editable]="editable"></app-application-attribute>
     </mat-card-content>
     <mat-card-actions>
         <div *ngIf="!editable">
-          <button mat-button (click)="setEditable()">UPDATE</button>
+            <button mat-button (click)="setEditable()">UPDATE</button>
+            <button mat-button (click)="delete()">DELETE</button>
         </div>
         <div *ngIf="editable">
             <button mat-button (click)="save()">SAVE</button>

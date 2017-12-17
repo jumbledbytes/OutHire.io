@@ -92,6 +92,7 @@ export class DatabaseService implements ApplicationDatabase {
       let result = new dataTypeClass();
       result.databaseCollection = collectionName;
       result.load(dbResult);
+      result._id = dbResult._id;
       collectionContents.push(result);
     });
 
@@ -113,7 +114,7 @@ export class DatabaseService implements ApplicationDatabase {
     let document = this._db.collection(collectionName).document(documentId);
     result.databaseCollection = collectionName;
     result.load(document);
-    result._id = documentId;
+    result._id = document._id;
     
     return result;
   }
@@ -131,8 +132,14 @@ export class DatabaseService implements ApplicationDatabase {
     }
 
     let documentCollection = dataObject.databaseCollection;
-    let documentInfo = await this._db.collection(documentCollection).save(dataObject);
-    dataObject._id = documentInfo._id;
+    let documentInfo = null;
+    if(dataObject._id) {
+      // The document exists so replace the existing document
+      documentInfo = await this._db.collection(documentCollection).replace(dataObject._id, dataObject);
+    } else {
+      documentInfo = await this._db.collection(documentCollection).save(dataObject);
+      dataObject._id = documentInfo._id;
+    }
     return documentInfo;
   }
 
@@ -149,5 +156,20 @@ export class DatabaseService implements ApplicationDatabase {
     let documentCollection = dataObject.databaseCollection;
     let oldDocument = this._db.collection(documentCollection).document(dataObject._id)
     dataObject.load(oldDocument);
+  }
+
+  /**
+   * Delete a record from the database
+   * 
+   * @param {DatabaseModel} dataObject The object containing the data to delete from the database
+   * @returns 
+   * @memberof DatabaseService
+   */
+  public async delete(dataObject: DatabaseModel) {
+    if(! this.isConnected() || ! dataObject || ! dataObject._id) {
+      return;
+    }
+    let documentCollection = dataObject.databaseCollection;
+    this._db.collection(documentCollection).remove(dataObject._id);
   }
 }

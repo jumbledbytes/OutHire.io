@@ -20,6 +20,7 @@ import { JobApplicationComponent } from './jobapplications/jobapplication/jobapp
 import { ApplicationPageComponent } from './jobapplications/applicationpage/applicationpage.component';
 import { ApplicationPageGuard } from './jobapplications/applicationpage.guard';
 import { NavBarComponent } from './jobapplications/nav-bar/nav-bar.component';
+import { ApplicationAttributeComponent } from './jobapplications/applicationattribute/applicationattribute.component';
 
 const OutHireRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -34,7 +35,8 @@ const OutHireRoutes: Routes = [
     ApplicationListComponent,
     JobApplicationComponent,
     ApplicationPageComponent,
-    NavBarComponent
+    NavBarComponent,
+    ApplicationAttributeComponent
   ],
   imports: [
     BrowserModule,

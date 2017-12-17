@@ -60,4 +60,12 @@ export interface ApplicationDatabase {
      * @memberof DatabaseModel
      */
     revert(dataObject: DatabaseModel);
+
+    /**
+     * Delete an object from the database
+     * 
+     * @param {DatabaseModel} dataObject 
+     * @memberof ApplicationDatabase
+     */
+    delete(dataObject: DatabaseModel);
 }
